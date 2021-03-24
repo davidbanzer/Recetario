@@ -70,7 +70,7 @@ class RecetaBLL
         return $listaRecetas;
     }
 
-    function selectById($id)
+    function selectById($receta_id)
     {
         $objConnection = new Connection();
         $res = $objConnection->queryWithParams("
@@ -78,7 +78,7 @@ class RecetaBLL
             FROM receta
             WHERE receta_id = :varId
         ", array(
-            ":varId" => $id
+            ":varId" => $receta_id
         ));
         if ($res->rowCount() == 0) {
             return null;
@@ -92,7 +92,7 @@ class RecetaBLL
     {
         $objReceta = new Receta();
 
-        $objReceta->setId($row["id"]);
+        $objReceta->setId($row["receta_id"]);
         $objReceta->setNombre($row["nombre"]);
         $objReceta->setDescripcion($row["descripcion"]);
         $objReceta->setTiempoPreparacion($row["tiempo_preparacion"]);

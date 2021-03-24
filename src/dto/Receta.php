@@ -2,7 +2,7 @@
 namespace App\dto;
 
 class Receta{
-    private $id;
+    private $receta_id;
     private $nombre;
     private $descripcion;
     private $tiempo_preparacion;
@@ -13,15 +13,15 @@ class Receta{
      */
     public function getId()
     {
-        return $this->id;
+        return $this->receta_id;
     }
 
     /**
      * @param mixed $id
      */
-    public function setId($id)
+    public function setId($receta_id)
     {
-        $this->id = $id;
+        $this->receta_id = $receta_id;
     }
 
     /**
