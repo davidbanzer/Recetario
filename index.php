@@ -28,60 +28,18 @@ $listaRecetas = $RecetaBLL->selectAll();
     <div class="background-overlay">
         <div class="container py-5">
             <div class="card-columns">
-                <div class="card">
-                    <img class="card-img-top img-fluid"
-                         src="https://t2.rg.ltmcdn.com/es/images/6/5/0/habas_a_la_catalana_75056_600.jpg">
-                    <div class="card-body">
-                        <h4 class="card-title"></h4>
-                        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to
-                            additional content. This content is a little bit longer.</p>
+                <?php
+                foreach ($listaRecetas as $item): ?>
+                    <div class="card">
+                        <img class="card-img-top img-fluid"
+                             src="<?php echo $item->getFoto()?>">
+                        <div class="card-body">
+                            <h4 class="card-title"><?php echo $item->getNombre()?></h4>
+                            <p class="card-text"><?php echo $item->getDescripcion()?></p>
+                            <small>Tiempo de preparación: <?php echo $item->getTiempoPreparacion()?></small>
+                        </div>
                     </div>
-                </div>
-                <div class="card">
-                    <img class="card-img-top img-fluid"
-                         src="https://t2.rg.ltmcdn.com/es/images/6/5/0/habas_a_la_catalana_75056_600.jpg">
-                    <div class="card-body">
-                        <h4 class="card-title"></h4>
-                        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to
-                            additional content. This content is a little bit longer.</p>
-                    </div>
-                </div>
-                <div class="card">
-                    <img class="card-img-top img-fluid"
-                         src="https://t2.rg.ltmcdn.com/es/images/6/5/0/habas_a_la_catalana_75056_600.jpg">
-                    <div class="card-body">
-                        <h4 class="card-title"></h4>
-                        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to
-                            additional content. This content is a little bit longer.</p>
-                    </div>
-                </div>
-                <div class="card">
-                    <img class="card-img-top img-fluid"
-                         src="https://t2.rg.ltmcdn.com/es/images/6/5/0/habas_a_la_catalana_75056_600.jpg">
-                    <div class="card-body">
-                        <h4 class="card-title"></h4>
-                        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to
-                            additional content. This content is a little bit longer.</p>
-                    </div>
-                </div>
-                <div class="card">
-                    <img class="card-img-top img-fluid"
-                         src="https://t2.rg.ltmcdn.com/es/images/6/5/0/habas_a_la_catalana_75056_600.jpg">
-                    <div class="card-body">
-                        <h4 class="card-title"></h4>
-                        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to
-                            additional content. This content is a little bit longer.</p>
-                    </div>
-                </div>
-                <div class="card">
-                    <img class="card-img-top img-fluid"
-                         src="https://t2.rg.ltmcdn.com/es/images/6/5/0/habas_a_la_catalana_75056_600.jpg">
-                    <div class="card-body">
-                        <h4 class="card-title"></h4>
-                        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to
-                            additional content. This content is a little bit longer.</p>
-                    </div>
-                </div>
+                <?php endforeach; ?>
             </div>
         </div>
     </div>
