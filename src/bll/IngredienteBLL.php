@@ -2,7 +2,7 @@
 
 
 namespace App\bll;
-
+use PDO;
 
 use App\dal\Connection;
 use App\dto\Ingrediente;
@@ -55,6 +55,20 @@ class IngredienteBLL
         $res = $objConnection->query("
             SELECT *
             FROM ingrediente
+        ");
+        while ($row = $res->fetch(PDO::FETCH_ASSOC)) {
+            $ingrediente = $this->rowToDto($row);
+            $listaIngrediente[] = $ingrediente;
+        }
+        return $listaIngrediente;
+    }
+    function selectAllById($id)
+    {
+        $listaIngrediente = array();
+        $objConnection = new Connection();
+        $res = $objConnection->query("
+            SELECT *
+            FROM ingrediente where receta_id = $id
         ");
         while ($row = $res->fetch(PDO::FETCH_ASSOC)) {
             $ingrediente = $this->rowToDto($row);
