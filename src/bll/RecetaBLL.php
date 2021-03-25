@@ -26,7 +26,7 @@ class RecetaBLL
         return $objConecction->getLastInsertedId();
     }
 
-    function update($nombre, $descripcion, $tiempo_preparacion, $foto, $id)
+    function update($nombre, $descripcion, $tiempo_preparacion, $foto, $receta_id)
     {
         $objConecction = new Connection();
         $objConecction->queryWithParams("
@@ -41,17 +41,17 @@ class RecetaBLL
             ":varDescripcion" => $descripcion,
             ":varTiempoPreparacion" => $tiempo_preparacion,
             ":varFoto" => $foto,
-            ":varId" => $id
+            ":varId" => $receta_id
         ));
     }
 
-    function delete($id)
+    function delete($receta_id)
     {
         $objConecction = new Connection();
         $objConecction->queryWithParams("
         DELETE FROM receta WHERE receta_id = :varId
         ", array(
-            ":varId" => $id
+            ":varId" => $receta_id
         ));
     }
 

@@ -8,7 +8,7 @@
         <div class="navbar-nav ml-auto">
             <a class="nav-link text-dark" href="#"><i class="fas fa-hat-chef mr-2"></i>Inicio <span
                         class="sr-only">(current)</span></a>
-            <a class="nav-link text-dark" href="#"><i class="fas fa-hat-chef mr-2"></i>Admin <span
+            <a class="nav-link text-dark" href="#"><i class="fas fa-hat-chef mr-2"></i>Agregar Receta <span
                         class="sr-only">(current)</span></a>
         </div>
     </div>
