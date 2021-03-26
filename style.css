@@ -1,0 +1,15 @@
+
+.navbar-brand {
+    font-family: Chango;
+}
+.card-columns {
+    column-count: 3;
+}
+.main-header {
+    background: url(src/img/fondo4.png) repeat;
+    background-size: cover;
+    min-height : 700px;
+}
+.img-thumbnail{
+    max-width: 400px!important;
+}

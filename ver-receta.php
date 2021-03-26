@@ -27,7 +27,7 @@ if (isset($_REQUEST['id'])) {
     <script src="vendor/twbs/bootstrap/dist/js/bootstrap.js" type="text/javascript"></script>
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
           integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
-    <link rel="stylesheet" href="src/css/style.css">
+    <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Chango&display=swap" rel="stylesheet">
 </head>
@@ -38,6 +38,7 @@ include 'header.php';
 <div class="main-header">
     <div class="background-overlay">
         <div class="container py-5 text-white">
+            <div class="text-center mb-5"><h1><?php echo $objReceta->getNombre(); ?></h1></div>
             <div class="row">
                 <div class="col-md-6 align-self-center">
                     <h2>Ingredientes:</h2>
@@ -47,15 +48,16 @@ include 'header.php';
                     <?php endforeach; ?>
                 </div>
                 <div class="col-md-6 align-self-center">
-                    <img src="<?php echo $objReceta->getFoto(); ?>" class="img-fluid" alt="">
+                    <img src="<?php echo $objReceta->getFoto(); ?>" class="img-thumbnail" alt="">
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-12 text-center mt-5">
-                    <h2>Cómo hacer <?php echo $objReceta->getNombre(); ?>
+                <div class="col-md-12 text-center font my-5">
+                    <h2>Preparación
                     </h2>
-                    <?php foreach ($objPreparacion as $item):?>
-                    <p><?php echo $item->getDescripcion();?></p>
+                    <?php foreach ($objPreparacion as $item): ?>
+                        <h3 class="float-left mr-3"><?php echo $item->getOrden(); ?></h3>
+                        <p class="text-justify"><?php echo $item->getDescripcion(); ?></p>
                     <?php endforeach; ?>
                 </div>
             </div>
