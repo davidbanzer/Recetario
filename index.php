@@ -31,12 +31,14 @@ $listaRecetas = $RecetaBLL->selectAll();
                 <?php
                 foreach ($listaRecetas as $item): ?>
                     <div class="card">
-                        <img class="card-img-top img-fluid"
-                             src="<?php echo $item->getFoto()?>">
+                        <a href="ver-receta.php?id=<?php echo $item->getId(); ?>">
+                            <img class="card-img-top" height="250" width="250"
+                                 src="<?php echo $item->getFoto() ?>">
+                        </a>
                         <div class="card-body">
-                            <h4 class="card-title"><?php echo $item->getNombre()?></h4>
-                            <p class="card-text"><?php echo $item->getDescripcion()?></p>
-                            <small>Tiempo de preparación: <?php echo $item->getTiempoPreparacion()?></small>
+                            <h4 class="card-title"><?php echo $item->getNombre() ?></h4>
+                            <p class="card-text"><?php echo $item->getDescripcion() ?></p>
+                            <small>Tiempo de preparación: <?php echo $item->getTiempoPreparacion() ?></small>
                         </div>
                     </div>
                 <?php endforeach; ?>

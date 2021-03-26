@@ -5,8 +5,13 @@ use App\bll\IngredienteBLL;
 
 $IngredienteBLL = new IngredienteBLL();
 $RecetaBLL = new \App\bll\RecetaBLL();
-$listaIngrediente = $IngredienteBLL->selectAllById(1);
-$foto = $RecetaBLL->selectById(1)
+$id = 0;
+$objReceta = null;
+if (isset($_REQUEST['id'])) {
+    $id = $_REQUEST['id'];
+    $objReceta = $RecetaBLL->selectById($id);
+    $objIngrediente = $IngredienteBLL->selectAllById($id);
+}
 ?>
 <!doctype html>
 <html lang="en">
@@ -33,15 +38,15 @@ $foto = $RecetaBLL->selectById(1)
         <div class="background-overlay">
             <div class="container py-5 text-white">
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-6 align-self-center">
                         <h2>Ingredientes:</h2>
                         <?php
-                        foreach ($listaIngrediente as $item): ?>
+                        foreach ($objIngrediente as $item): ?>
                             <p ><?php echo $item->getNombre();?></p>
                         <?php endforeach;?>
                     </div>
                     <div class="col-md-6 align-self-center">
-                        <img class="img-fluid" src="<?php echo $foto->getFoto();?>" alt="">
+                        <img src="<?php echo $objReceta->getFoto();?>" class="img-fluid"  alt="">
                     </div>
                 </div>
             </div>
