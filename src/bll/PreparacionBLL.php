@@ -6,7 +6,7 @@ namespace App\bll;
 
 use App\dal\Connection;
 use App\dto\Preparacion;
-
+use PDO;
 class PreparacionBLL
 {
     function insert($descripcion,$orden, $receta_id)
