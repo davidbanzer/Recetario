@@ -2,10 +2,12 @@
 include_once "vendor/autoload.php";
 
 use App\bll\IngredienteBLL;
+use App\bll\PreparacionBLL;
+use App\bll\RecetaBLL;
 
 $IngredienteBLL = new IngredienteBLL();
-$RecetaBLL = new \App\bll\RecetaBLL();
-$PreparacionBLL = new \App\bll\PreparacionBLL();
+$RecetaBLL = new RecetaBLL();
+$PreparacionBLL = new PreparacionBLL();
 $id = 0;
 if (isset($_REQUEST['id'])) {
     $id = $_REQUEST['id'];
@@ -36,30 +38,28 @@ if (isset($_REQUEST['id'])) {
 include 'header.php';
 ?>
 <div class="main-header">
-    <div class="background-overlay">
-        <div class="container py-5 text-white">
-            <div class="text-center mb-5"><h1><?php echo $objReceta->getNombre(); ?></h1></div>
-            <div class="row">
-                <div class="col-md-6 align-self-center">
-                    <h2>Ingredientes:</h2>
-                    <?php
-                    foreach ($objIngrediente as $item): ?>
-                        <p><?php echo $item->getNombre(); ?></p>
-                    <?php endforeach; ?>
-                </div>
-                <div class="col-md-6 align-self-center">
-                    <img src="<?php echo $objReceta->getFoto(); ?>" class="img-thumbnail" alt="">
-                </div>
+    <div class="container py-5 text-white">
+        <div class="text-center mb-5"><h1><?php echo $objReceta->getNombre(); ?></h1></div>
+        <div class="row">
+            <div class="col-md-6 align-self-center">
+                <h2>Ingredientes:</h2>
+                <?php
+                foreach ($objIngrediente as $item): ?>
+                    <p><?php echo $item->getNombre(); ?></p>
+                <?php endforeach; ?>
             </div>
-            <div class="row">
-                <div class="col-md-12 text-center font my-5">
-                    <h2>Preparación
-                    </h2>
-                    <?php foreach ($objPreparacion as $item): ?>
-                        <h3 class="float-left mr-3"><?php echo $item->getOrden(); ?></h3>
-                        <p class="text-justify"><?php echo $item->getDescripcion(); ?></p>
-                    <?php endforeach; ?>
-                </div>
+            <div class="col-md-6 align-self-center">
+                <img src="<?php echo $objReceta->getFoto(); ?>" class="img-thumbnail" alt="">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-center font my-5">
+                <h2>Preparación
+                </h2>
+                <?php foreach ($objPreparacion as $item): ?>
+                    <h3 class="float-left mr-3"><?php echo $item->getOrden(); ?></h3>
+                    <p class="text-justify"><?php echo $item->getDescripcion(); ?></p>
+                <?php endforeach; ?>
             </div>
         </div>
     </div>

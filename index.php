@@ -4,6 +4,39 @@ include_once "vendor/autoload.php";
 use App\bll\RecetaBLL;
 
 $RecetaBLL = new RecetaBLL();
+$task = "list";
+if (isset($_REQUEST['task'])) {
+    $task = $_REQUEST['task'];
+}
+switch ($task) {
+    case "insert":
+        if (isset($_REQUEST["nombre"]) && isset($_REQUEST["descripcion"])
+            && isset($_REQUEST["tiempo_preparacion"]) && isset($_REQUEST["foto"])) {
+            $nombre = $_REQUEST["nombre"];
+            $descripcion = $_REQUEST["descripcion"];
+            $tiempo_preparacion = $_REQUEST["tiempo_preparacion"];
+            $foto = $_REQUEST["foto"];
+            $RecetaBLL->insert($nombre, $descripcion, $tiempo_preparacion, $foto);
+        }
+        break;
+    case "update":
+        if (isset($_REQUEST["nombre"]) && isset($_REQUEST["descripcion"])
+            && isset($_REQUEST["tiempo_preparacion"]) && isset($_REQUEST["foto"]) && isset($_REQUEST["id"])) {
+            $nombre = $_REQUEST["nombre"];
+            $descripcion = $_REQUEST["descripcion"];
+            $tiempo_preparacion = $_REQUEST["tiempo_preparacion"];
+            $foto = $_REQUEST["foto"];
+            $id = $_REQUEST["id"];
+            $RecetaBLL->update($nombre, $descripcion, $tiempo_preparacion,$foto, $id);
+        }
+        break;
+    case "delete":
+        if (isset($_REQUEST["id"])) {
+            $id = $_REQUEST["id"];
+            $RecetaBLL->delete($id);
+        }
+        break;
+}
 $listaRecetas = $RecetaBLL->selectAll();
 ?>
 <!doctype html>
@@ -25,24 +58,24 @@ $listaRecetas = $RecetaBLL->selectAll();
 <body>
 <?php include 'header.php'; ?>
 <div class="main-header">
-    <div class="background-overlay">
-        <div class="container py-5">
-            <div class="card-columns">
-                <?php
-                foreach ($listaRecetas as $item): ?>
-                    <div class="card">
-                        <a href="ver-receta.php?id=<?php echo $item->getId(); ?>">
-                            <img class="card-img-top" height="250" width="250"
-                                 src="<?php echo $item->getFoto() ?>">
-                        </a>
-                        <div class="card-body">
-                            <h4 class="card-title"><?php echo $item->getNombre() ?></h4>
-                            <p class="card-text"><?php echo $item->getDescripcion() ?></p>
-                            <small>Tiempo de preparación: <?php echo $item->getTiempoPreparacion() ?></small>
-                        </div>
+    <div class="container py-5">
+        <div class="card-columns">
+            <?php
+            foreach ($listaRecetas as $item): ?>
+                <div class="card">
+                    <a href="ver-receta.php?id=<?php echo $item->getId(); ?>">
+                        <img class="card-img-top" height="250" width="250"
+                             src="<?php echo $item->getFoto() ?>">
+                    </a>
+                    <div class="card-body">
+                        <h4 class="card-title"><?php echo $item->getNombre() ?></h4>
+                        <p class="card-text"><?php echo $item->getDescripcion() ?></p>
+                        <small>Tiempo de preparación: <?php echo $item->getTiempoPreparacion() ?></small> <br>
+                        <a class="float-right p-2 text-danger" href="index.php?task=delete&id=<?php echo $item->getId(); ?>">eliminar</a>
+                        <a class="float-right p-2" href="formReceta.php?id=<?php echo $item->getId();?>">editar</a>
                     </div>
-                <?php endforeach; ?>
-            </div>
+                </div>
+            <?php endforeach; ?>
         </div>
     </div>
 </div>
