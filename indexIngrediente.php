@@ -1,25 +1,22 @@
 <?php
 include_once "vendor/autoload.php";
 
-use App\bll\RecetaBLL;
+use App\bll\IngredienteBLL;
 
-$RecetaBLL = new RecetaBLL();
+$IngredienteBLL = new IngredienteBLL();
 $task = "list";
 if (isset($_REQUEST['task'])) {
     $task = $_REQUEST['task'];
 }
 switch ($task) {
     case "insert":
-        if (isset($_REQUEST["nombre"]) && isset($_REQUEST["descripcion"])
-            && isset($_REQUEST["tiempo_preparacion"]) && isset($_REQUEST["foto"])) {
-            $nombre = $_REQUEST["nombre"];
+        if (isset($_REQUEST["descripcion"]) && isset($_REQUEST["recetaId"])) {
             $descripcion = $_REQUEST["descripcion"];
-            $tiempo_preparacion = $_REQUEST["tiempo_preparacion"];
-            $foto = $_REQUEST["foto"];
-            $RecetaBLL->insert($nombre, $descripcion, $tiempo_preparacion, $foto);
+            $recetaId = $_REQUEST["recetaId"];
+            $IngredienteBLL->insert($descripcion, $recetaId);
         }
         break;
-    case "update":
+    /*case "update":
         if (isset($_REQUEST["nombre"]) && isset($_REQUEST["descripcion"])
             && isset($_REQUEST["tiempo_preparacion"]) && isset($_REQUEST["foto"]) && isset($_REQUEST["id"])) {
             $nombre = $_REQUEST["nombre"];
@@ -35,9 +32,9 @@ switch ($task) {
             $id = $_REQUEST["id"];
             $RecetaBLL->delete($id);
         }
-        break;
+        break;*/
 }
-$listaRecetas = $RecetaBLL->selectAll();
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -59,24 +56,7 @@ $listaRecetas = $RecetaBLL->selectAll();
 <?php include 'header.php'; ?>
 <div class="main-header">
     <div class="container py-5">
-        <div class="card-columns">
-            <?php
-            foreach ($listaRecetas as $item): ?>
-                <div class="card">
-                    <a href="ver-receta.php?id=<?php echo $item->getId(); ?>">
-                        <img class="card-img-top" height="250" width="250"
-                             src="<?php echo $item->getFoto() ?>">
-                    </a>
-                    <div class="card-body">
-                        <h4 class="card-title"><?php echo $item->getNombre() ?></h4>
-                        <p class="card-text"><?php echo $item->getDescripcion() ?></p>
-                        <small>Tiempo de preparación: <?php echo $item->getTiempoPreparacion() ?></small> <br>
-                        <a class="float-right p-2 text-danger" onclick="return confirm('¿Está seguro que desea eliminar a la persona?')" href="index.php?task=delete&id=<?php echo $item->getId(); ?>">eliminar</a>
-                        <a class="float-right p-2" href="formReceta.php?id=<?php echo $item->getId();?>">editar</a>
-                    </div>
-                </div>
-            <?php endforeach; ?>
-        </div>
+        <h3 class="text-white text-center">Ingrediente ingresado correctamente</h3>
     </div>
 </div>
 </body>

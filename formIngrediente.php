@@ -1,18 +1,20 @@
 <?php
 include_once "vendor/autoload.php";
 
+use App\bll\IngredienteBLL;
 use App\bll\RecetaBLL;
 
 
 $RecetaBLL = new RecetaBLL();
-
+$IngredienteBLL = new IngredienteBLL();
 $id = 0;
 $objReceta = null;
+$objIngrediente = null;
 if (isset($_REQUEST['id'])) {
     $id = $_REQUEST['id'];
-    $objReceta = $RecetaBLL->selectById($id);
-
+    $objIngrediente = $IngredienteBLL-> selectById($id);
 }
+$objReceta = $RecetaBLL->selectAll();
 ?>
 
 <!doctype html>
@@ -38,19 +40,23 @@ if (isset($_REQUEST['id'])) {
     <div class="container">
         <div class="row">
             <div class="col-md-6 offset-md-3 text-white">
-                <form action="index.php" method="post">
-                    <h1 class="mt-3">Receta</h1>
+                <form action="indexIngrediente.php" method="post">
+                    <h1 class="mt-3">Ingredientes</h1>
                     <input type="hidden" name="id" value="<?php echo $id ?>" />
                     <input type="hidden" name="task" value="<?php echo ($id == 0) ? "insert" : "update" ?>" />
-                    <label class="form-label"><h3>Nombre</h3></label>
-                    <input type="text" name="nombre" class="form-control mb-3" value="<?php echo ($objReceta == null) ? '' : $objReceta->getNombre(); ?>"/>
-                    <label class="form-label"><h3>Descripcion</h3></label>
-                    <input type="text" name="descripcion" class="form-control mb-3" value="<?php echo ($objReceta == null) ? '' : $objReceta->getDescripcion(); ?>"/>
-                    <label class="form-label"><h3>Tiempo de preparación</h3></label>
-                    <input type="text" name="tiempo_preparacion" class="form-control mb-3" value="<?php echo ($objReceta == null) ? '' : $objReceta->getTiempoPreparacion(); ?>"/>
-                    <label class="form-label"><h3>Foto (url)</h3></label>
-                    <input type="text" name="foto" class="form-control mb-3" value="<?php echo ($objReceta == null) ? '' : $objReceta->getFoto(); ?>"/>
-                    <input type="submit" value="Enviar" class="btn btn-primary">
+                    <label class="form-label"><h3>Descripción</h3></label>
+                    <input type="text" name="descripcion" class="form-control mb-3" value="<?php echo ($objIngrediente == null) ? '' : $objIngrediente->getNombre(); ?>"/>
+                    <label for="form-label"><h3>Receta</h3></label>
+                    <select name="recetaId" class="form-control">
+                        <?php foreach ($objReceta as $item): ?>
+                        <option <?php if ($objIngrediente != null && $item->getId() == $objIngrediente->getRecetaId()){
+                            echo "selected";
+                        }?> value="<?php echo $item->getId()?>">
+                            <?php echo $item->getNombre()?>
+                        </option>
+                        <?php endforeach;?>
+                    </select>
+                    <input type="submit" value="enviar" class="btn btn-primary mt-3">
                 </form>
             </div>
         </div>

@@ -8,6 +8,9 @@ use App\bll\RecetaBLL;
 $IngredienteBLL = new IngredienteBLL();
 $RecetaBLL = new RecetaBLL();
 $PreparacionBLL = new PreparacionBLL();
+$objIngrediente = null;
+$objReceta = null;
+$objPreparacion = null;
 $id = 0;
 if (isset($_REQUEST['id'])) {
     $id = $_REQUEST['id'];
@@ -15,6 +18,7 @@ if (isset($_REQUEST['id'])) {
     $objIngrediente = $IngredienteBLL->selectAllById($id);
     $objPreparacion = $PreparacionBLL->selectAllById($id);
 }
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -45,7 +49,7 @@ include 'header.php';
                 <h2>Ingredientes:</h2>
                 <?php
                 foreach ($objIngrediente as $item): ?>
-                    <p><?php echo $item->getNombre(); ?></p>
+                    <p><?php echo $item->getNombre(); ?> <a class="text-white" href="formIngrediente.php?id=<?php echo $item->getIngredienteId()?>"><i class="fas fa-edit mx-3"></i><i class="fas fa-trash"></i></a></p>
                 <?php endforeach; ?>
             </div>
             <div class="col-md-6 align-self-center">
