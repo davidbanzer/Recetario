@@ -29,7 +29,7 @@ class IngredienteBLL
         $objConecction->queryWithParams("
         UPDATE ingrediente
         SET nombre = :varNombre,
-            receta_id : varRecetaId
+            receta_id = :varRecetaId
         WHERE ingrediente_id = :varId
         ", array(
             ":varNombre" => $nombre,
@@ -42,7 +42,7 @@ class IngredienteBLL
     {
         $objConecction = new Connection();
         $objConecction->queryWithParams("
-        DELETE FROM receta WHERE receta_id = :varId
+        DELETE FROM ingrediente WHERE ingrediente_id = :varId
         ", array(
             ":varId" => $ingrediente_id
         ));

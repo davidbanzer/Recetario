@@ -49,7 +49,9 @@ include 'header.php';
                 <h2>Ingredientes:</h2>
                 <?php
                 foreach ($objIngrediente as $item): ?>
-                    <p><?php echo $item->getNombre(); ?> <a class="text-white" href="formIngrediente.php?id=<?php echo $item->getIngredienteId()?>"><i class="fas fa-edit mx-3"></i><i class="fas fa-trash"></i></a></p>
+                    <p><?php echo $item->getNombre(); ?> <a class="text-white"
+                                                            href="formIngrediente.php?id=<?php echo $item->getIngredienteId() ?>"><i
+                                    class="fas fa-edit mx-3"></i></a> <a onclick="return confirm('¿Desea eliminar?')" class="text-white" href="indexIngrediente.php?task=delete&id=<?php echo $item->getIngredienteId()?>"><i class="fas fa-trash"></i></a></p>
                 <?php endforeach; ?>
             </div>
             <div class="col-md-6 align-self-center">

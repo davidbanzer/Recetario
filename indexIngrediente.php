@@ -16,23 +16,20 @@ switch ($task) {
             $IngredienteBLL->insert($descripcion, $recetaId);
         }
         break;
-    /*case "update":
-        if (isset($_REQUEST["nombre"]) && isset($_REQUEST["descripcion"])
-            && isset($_REQUEST["tiempo_preparacion"]) && isset($_REQUEST["foto"]) && isset($_REQUEST["id"])) {
-            $nombre = $_REQUEST["nombre"];
+    case "update":
+        if (isset($_REQUEST["descripcion"]) && isset($_REQUEST["recetaId"]) && isset($_REQUEST["id"])) {
             $descripcion = $_REQUEST["descripcion"];
-            $tiempo_preparacion = $_REQUEST["tiempo_preparacion"];
-            $foto = $_REQUEST["foto"];
+            $recetaId = $_REQUEST["recetaId"];
             $id = $_REQUEST["id"];
-            $RecetaBLL->update($nombre, $descripcion, $tiempo_preparacion,$foto, $id);
+            $IngredienteBLL->update($descripcion, $recetaId, $id);
         }
         break;
     case "delete":
         if (isset($_REQUEST["id"])) {
             $id = $_REQUEST["id"];
-            $RecetaBLL->delete($id);
+            $IngredienteBLL->delete($id);
         }
-        break;*/
+        break;
 }
 
 ?>
