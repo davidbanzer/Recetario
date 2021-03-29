@@ -30,8 +30,8 @@ class PreparacionBLL
         $objConecction->queryWithParams("
         UPDATE preparacion
         SET descripcion = :varDescripcion,
-            orden = : varOrden,
-            receta_id : varRecetaId
+            orden = :varOrden,
+            receta_id = :varRecetaId
         WHERE preparacion_id = :varPreparacionId
         ", array(
             ":varDescripcion" => $descripcion,
@@ -71,7 +71,7 @@ class PreparacionBLL
         $objConnection = new Connection();
         $res = $objConnection->query("
             SELECT *
-            FROM preparacion where receta_id = $id
+            FROM preparacion where receta_id = $id order by 3 asc
         ");
         while ($row = $res->fetch(PDO::FETCH_ASSOC)) {
             $preparacion = $this->rowToDto($row);

@@ -1,20 +1,22 @@
 <?php
 include_once "vendor/autoload.php";
 
-use App\bll\IngredienteBLL;
+use App\bll\PreparacionBLL;
 use App\bll\RecetaBLL;
 
 
+
 $RecetaBLL = new RecetaBLL();
-$IngredienteBLL = new IngredienteBLL();
+$PreparacionBLL = new PreparacionBLL();
 $id = 0;
 $objReceta = null;
-$objIngrediente = null;
+$objPreparacion = null;
 if (isset($_REQUEST['id'])) {
     $id = $_REQUEST['id'];
-    $objIngrediente = $IngredienteBLL-> selectById($id);
+    $objPreparacion = $PreparacionBLL->selectById($id);
 }
 $objReceta = $RecetaBLL->selectAll();
+
 ?>
 
 <!doctype html>
@@ -24,7 +26,7 @@ $objReceta = $RecetaBLL->selectAll();
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Formulario Ingrediente</title>
+    <title>Formulario Preparación</title>
     <script src="vendor/components/jquery/jquery.js" type="text/javascript"></script>
     <link href="vendor/twbs/bootstrap/dist/css/bootstrap.css" rel="stylesheet"/>
     <script src="vendor/twbs/bootstrap/dist/js/bootstrap.js" type="text/javascript"></script>
@@ -41,20 +43,22 @@ $objReceta = $RecetaBLL->selectAll();
         <div class="row">
             <div class="col-md-6 offset-md-3 text-white">
                 <form action="index.php" method="post">
-                    <h1 class="mt-3">Ingredientes</h1>
-                    <input type="hidden" name="form" value="ingrediente"/>
-                    <input type="hidden" name="id" value="<?php echo $id ?>" />
-                    <input type="hidden" name="task" value="<?php echo ($id == 0) ? "insert" : "update" ?>" />
+                    <h1 class="my-3">Preparación</h1>
+                    <input type="hidden" name="form" value="preparacion"/>
+                    <input type="hidden" name="id" value="<?php echo $id ?>"/>
+                    <input type="hidden" name="task" value="<?php echo ($id == 0) ? "insert" : "update" ?>"/>
                     <label class="form-label"><h3>Descripción</h3></label>
-                    <input type="text" name="descripcion" class="form-control mb-3" value="<?php echo ($objIngrediente == null) ? '' : $objIngrediente->getNombre(); ?>"/>
-                    <label for="form-label"><h3>Receta</h3></label>
+                    <input type="text" class="form-control" name="descripcion" value="<?php echo ($objPreparacion == null) ? '' : $objPreparacion->getDescripcion(); ?>">
+                    <label class="form-label mt-3"><h3>Orden</h3></label>
+                    <input type="number" name="orden" class="form-control" value="<?php echo ($objPreparacion == null) ? '' : $objPreparacion->getOrden(); ?>">
+                    <label class="form-label mt-3"><h3>Receta</h3></label>
                     <select name="recetaId" class="form-control">
                         <?php foreach ($objReceta as $item): ?>
-                        <option <?php if ($objIngrediente != null && $item->getId() == $objIngrediente->getRecetaId()){
-                            echo "selected";
-                        }?> value="<?php echo $item->getId()?>">
-                            <?php echo $item->getNombre()?>
-                        </option>
+                            <option <?php if ($objPreparacion != null && $item->getId() == $objPreparacion->getRecetaId()){
+                                echo "selected";
+                            }?> value="<?php echo $item->getId()?>">
+                                <?php echo $item->getNombre()?>
+                            </option>
                         <?php endforeach;?>
                     </select>
                     <input type="submit" value="enviar" class="btn btn-primary mt-3">

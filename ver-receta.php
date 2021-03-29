@@ -51,7 +51,10 @@ include 'header.php';
                 foreach ($objIngrediente as $item): ?>
                     <p><?php echo $item->getNombre(); ?> <a class="text-white"
                                                             href="formIngrediente.php?id=<?php echo $item->getIngredienteId() ?>"><i
-                                    class="fas fa-edit mx-3"></i></a> <a onclick="return confirm('¿Desea eliminar?')" class="text-white" href="indexIngrediente.php?task=delete&id=<?php echo $item->getIngredienteId()?>"><i class="fas fa-trash"></i></a></p>
+                                    class="fas fa-edit mx-3"></i></a> <a onclick="return confirm('¿Desea eliminar?')"
+                                                                         class="text-white"
+                                                                         href="index.php?task=delete&form=ingrediente&id=<?php echo $item->getIngredienteId() ?>"><i
+                                    class="fas fa-trash"></i></a></p>
                 <?php endforeach; ?>
             </div>
             <div class="col-md-6 align-self-center">
@@ -64,7 +67,14 @@ include 'header.php';
                 </h2>
                 <?php foreach ($objPreparacion as $item): ?>
                     <h3 class="float-left mr-3"><?php echo $item->getOrden(); ?></h3>
+                    <a onclick="return confirm('¿Desea eliminar?')" class="text-white float-right"
+                       href="index.php?task=delete&form=ingrediente&id=<?php echo $item->getPreparacionId() ?>"><i
+                                class="fas fa-trash"></i></a>
+                    <a class="text-white float-right"
+                       href="formPreparacion.php?id=<?php echo $item->getPreparacionId() ?>"><i
+                                class="fas fa-edit mx-3"></i> </a>
                     <p class="text-justify"><?php echo $item->getDescripcion(); ?></p>
+
                 <?php endforeach; ?>
             </div>
         </div>

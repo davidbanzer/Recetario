@@ -18,7 +18,7 @@
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="formIngrediente.php">Agregar Ingredientes a Receta</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="formPrepracion.php">Agregar Preparación a Receta</a>
+                    <a class="dropdown-item" href="formPreparacion.php">Agregar Preparación a Receta</a>
                 </div>
             </li>
 

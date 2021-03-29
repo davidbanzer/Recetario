@@ -1,42 +1,108 @@
 <?php
 include_once "vendor/autoload.php";
 
+use App\bll\IngredienteBLL;
+use App\bll\PreparacionBLL;
 use App\bll\RecetaBLL;
 
 $RecetaBLL = new RecetaBLL();
+$IngredienteBLL = new IngredienteBLL();
+$PreparacionBLL = new PreparacionBLL();
 $task = "list";
-if (isset($_REQUEST['task'])) {
+$form = "form";
+if (isset($_REQUEST['task']) && isset($_REQUEST['form'])) {
     $task = $_REQUEST['task'];
+    $form = $_REQUEST['form'];
 }
-switch ($task) {
-    case "insert":
-        if (isset($_REQUEST["nombre"]) && isset($_REQUEST["descripcion"])
-            && isset($_REQUEST["tiempo_preparacion"]) && isset($_REQUEST["foto"])) {
-            $nombre = $_REQUEST["nombre"];
-            $descripcion = $_REQUEST["descripcion"];
-            $tiempo_preparacion = $_REQUEST["tiempo_preparacion"];
-            $foto = $_REQUEST["foto"];
-            $RecetaBLL->insert($nombre, $descripcion, $tiempo_preparacion, $foto);
+switch ($form) {
+    case "receta" :
+    {
+        switch ($task) {
+            case "insert":
+                if (isset($_REQUEST["nombre"]) && isset($_REQUEST["descripcion"])
+                    && isset($_REQUEST["tiempo_preparacion"]) && isset($_REQUEST["foto"])) {
+                    $nombre = $_REQUEST["nombre"];
+                    $descripcion = $_REQUEST["descripcion"];
+                    $tiempo_preparacion = $_REQUEST["tiempo_preparacion"];
+                    $foto = $_REQUEST["foto"];
+                    $RecetaBLL->insert($nombre, $descripcion, $tiempo_preparacion, $foto);
+                }
+                break;
+            case "update":
+                if (isset($_REQUEST["nombre"]) && isset($_REQUEST["descripcion"])
+                    && isset($_REQUEST["tiempo_preparacion"]) && isset($_REQUEST["foto"]) && isset($_REQUEST["id"])) {
+                    $nombre = $_REQUEST["nombre"];
+                    $descripcion = $_REQUEST["descripcion"];
+                    $tiempo_preparacion = $_REQUEST["tiempo_preparacion"];
+                    $foto = $_REQUEST["foto"];
+                    $id = $_REQUEST["id"];
+                    $RecetaBLL->update($nombre, $descripcion, $tiempo_preparacion, $foto, $id);
+                }
+                break;
+            case "delete":
+                if (isset($_REQUEST["id"])) {
+                    $id = $_REQUEST["id"];
+                    $RecetaBLL->delete($id);
+                }
+                break;
         }
-        break;
-    case "update":
-        if (isset($_REQUEST["nombre"]) && isset($_REQUEST["descripcion"])
-            && isset($_REQUEST["tiempo_preparacion"]) && isset($_REQUEST["foto"]) && isset($_REQUEST["id"])) {
-            $nombre = $_REQUEST["nombre"];
-            $descripcion = $_REQUEST["descripcion"];
-            $tiempo_preparacion = $_REQUEST["tiempo_preparacion"];
-            $foto = $_REQUEST["foto"];
-            $id = $_REQUEST["id"];
-            $RecetaBLL->update($nombre, $descripcion, $tiempo_preparacion,$foto, $id);
+    }
+    case "ingrediente":
+    {
+        switch ($task) {
+            case "insert":
+                if (isset($_REQUEST["descripcion"]) && isset($_REQUEST["recetaId"])) {
+                    $descripcion = $_REQUEST["descripcion"];
+                    $recetaId = $_REQUEST["recetaId"];
+                    $IngredienteBLL->insert($descripcion, $recetaId);
+                }
+                break;
+            case "update":
+                if (isset($_REQUEST["descripcion"]) && isset($_REQUEST["recetaId"]) && isset($_REQUEST["id"])) {
+                    $descripcion = $_REQUEST["descripcion"];
+                    $recetaId = $_REQUEST["recetaId"];
+                    $id = $_REQUEST["id"];
+                    $IngredienteBLL->update($descripcion, $recetaId, $id);
+                }
+                break;
+            case "delete":
+                if (isset($_REQUEST["id"])) {
+                    $id = $_REQUEST["id"];
+                    $IngredienteBLL->delete($id);
+                }
+                break;
         }
-        break;
-    case "delete":
-        if (isset($_REQUEST["id"])) {
-            $id = $_REQUEST["id"];
-            $RecetaBLL->delete($id);
+    }
+    case "preparacion":
+    {
+        switch ($task) {
+            case "insert":
+                if (isset($_REQUEST["descripcion"]) && isset($_REQUEST["orden"]) &&isset($_REQUEST["recetaId"])) {
+                    $descripcion = $_REQUEST["descripcion"];
+                    $recetaId = $_REQUEST["recetaId"];
+                    $orden = $_REQUEST["orden"];
+                    $PreparacionBLL->insert($descripcion,$orden,$recetaId);
+                }
+                break;
+            case "update":
+                if (isset($_REQUEST["descripcion"]) && isset($_REQUEST["orden"]) && isset($_REQUEST["recetaId"]) && isset($_REQUEST["id"])) {
+                    $descripcion = $_REQUEST["descripcion"];
+                    $recetaId = $_REQUEST["recetaId"];
+                    $orden = $_REQUEST["orden"];
+                    $id = $_REQUEST["id"];
+                    $PreparacionBLL->update($descripcion,$orden,$recetaId, $id);
+                }
+                break;
+            case "delete":
+                if (isset($_REQUEST["id"])) {
+                    $id = $_REQUEST["id"];
+                    $PreparacionBLL->delete($id);
+                }
+                break;
         }
-        break;
+    }
 }
+
 $listaRecetas = $RecetaBLL->selectAll();
 ?>
 <!doctype html>
@@ -71,8 +137,10 @@ $listaRecetas = $RecetaBLL->selectAll();
                         <h4 class="card-title"><?php echo $item->getNombre() ?></h4>
                         <p class="card-text"><?php echo $item->getDescripcion() ?></p>
                         <small>Tiempo de preparación: <?php echo $item->getTiempoPreparacion() ?></small> <br>
-                        <a class="float-right p-2 text-danger" onclick="return confirm('¿Está seguro que desea eliminar a la persona?')" href="index.php?task=delete&id=<?php echo $item->getId(); ?>">eliminar</a>
-                        <a class="float-right p-2" href="formReceta.php?id=<?php echo $item->getId();?>">editar</a>
+                        <a class="float-right p-2 text-danger"
+                           onclick="return confirm('¿Está seguro que desea eliminar la receta?')"
+                           href="index.php?task=delete&form=receta&id=<?php echo $item->getId(); ?>">eliminar</a>
+                        <a class="float-right p-2" href="formReceta.php?id=<?php echo $item->getId(); ?>">editar</a>
                     </div>
                 </div>
             <?php endforeach; ?>
